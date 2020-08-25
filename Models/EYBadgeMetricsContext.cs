@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace EYBadges
+namespace EYBadges.Models
 {
     public partial class EYBadgeMetricsContext : DbContext
     {

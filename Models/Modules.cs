@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EYBadges
+namespace EYBadges.Models
 {
     public partial class Modules
     {
