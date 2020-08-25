@@ -11,41 +11,40 @@ namespace EYBadges.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class DeveloperKpisController : ControllerBase
     {
         private readonly EYBadgeMetricsContext _context;
 
-        public EmployeesController(EYBadgeMetricsContext context)
+        public DeveloperKpisController(EYBadgeMetricsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employees
+        // GET: api/DeveloperKpis
         [HttpGet]
-        public IEnumerable<Employee> GetEmployee()
+        public IEnumerable<DeveloperKpi> GetDeveloperKpi()
         {
-            return _context.Employee;
+            return _context.DeveloperKpi;
         }
 
-        // GET: api/Employees/5
+        // GET: api/DeveloperKpis/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployee([FromRoute] int id)
+        public async Task<IActionResult> GetDeveloperKpi([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var developerKpi = await _context.DeveloperKpi.FindAsync(id);
 
-            if (employee == null)
+            if (developerKpi == null)
             {
                 return NotFound();
             }
 
-            return Ok(employee);
+            return Ok(developerKpi);
         }
-
 
     }
 }

@@ -11,41 +11,40 @@ namespace EYBadges.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class ModulesController : ControllerBase
     {
         private readonly EYBadgeMetricsContext _context;
 
-        public EmployeesController(EYBadgeMetricsContext context)
+        public ModulesController(EYBadgeMetricsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employees
+        // GET: api/Modules
         [HttpGet]
-        public IEnumerable<Employee> GetEmployee()
+        public IEnumerable<Modules> GetModules()
         {
-            return _context.Employee;
+            return _context.Modules;
         }
 
-        // GET: api/Employees/5
+        // GET: api/Modules/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployee([FromRoute] int id)
+        public async Task<IActionResult> GetModules([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var modules = await _context.Modules.FindAsync(id);
 
-            if (employee == null)
+            if (modules == null)
             {
                 return NotFound();
             }
 
-            return Ok(employee);
+            return Ok(modules);
         }
-
 
     }
 }

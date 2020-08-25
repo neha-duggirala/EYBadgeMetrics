@@ -11,41 +11,39 @@ namespace EYBadges.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class OutOfTheBoxesController : ControllerBase
     {
         private readonly EYBadgeMetricsContext _context;
 
-        public EmployeesController(EYBadgeMetricsContext context)
+        public OutOfTheBoxesController(EYBadgeMetricsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employees
+        // GET: api/OutOfTheBoxes
         [HttpGet]
-        public IEnumerable<Employee> GetEmployee()
+        public IEnumerable<OutOfTheBox> GetOutOfTheBox()
         {
-            return _context.Employee;
+            return _context.OutOfTheBox;
         }
 
-        // GET: api/Employees/5
+        // GET: api/OutOfTheBoxes/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployee([FromRoute] int id)
+        public async Task<IActionResult> GetOutOfTheBox([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var outOfTheBox = await _context.OutOfTheBox.FindAsync(id);
 
-            if (employee == null)
+            if (outOfTheBox == null)
             {
                 return NotFound();
             }
 
-            return Ok(employee);
+            return Ok(outOfTheBox);
         }
-
-
     }
 }
