@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EYBadges.Models;
 using EYBadges.Dto;
+using Newtonsoft.Json;
 
 namespace EYBadges.Controllers
 {
@@ -50,18 +51,26 @@ namespace EYBadges.Controllers
             if (employee.EmployeeType == 1)
             {
                 //TODO: find all list of dates with same employee ID
-                var developerKpi = await _context.DeveloperKpi.FindAsync(id);
+                var developerKpi = _context.DeveloperKpi.FromSql("Select * from DeveloperKpi where EmployeeId = {0}",id).ToList();
 
-                DeveloperKpiDto devDto = new DeveloperKpiDto();
+                var devDto = new DeveloperKpiDto();
+                var devDtoList = new List<DeveloperKpiDto>();
 
-                devDto.Date = developerKpi.Date;
-                devDto.TestCoverage = developerKpi.TestCoverage;
-                devDto.CodeQualityPercent = developerKpi.CodeQualityPercent;
-                devDto.CodeSmellPercent = developerKpi.CodeSmellPercent;
-                devDto.Kloc = developerKpi.Kloc;
-                devDto.Throughput = developerKpi.Throughput; 
-                response.DeveloperKpiDto = devDto;
+                foreach (var developer in developerKpi)
+                {
+                    devDto.Date = developer.Date;
+                    devDto.TestCoverage = developer.TestCoverage;
+                    devDto.CodeQualityPercent = developer.CodeQualityPercent;
+                    devDto.CodeSmellPercent = developer.CodeSmellPercent;
+                    devDto.Kloc = developer.Kloc;
+                    devDto.Throughput = developer.Throughput; 
+                    devDtoList.Add(devDto);
+                }
+
+                response.DeveloperKpiDto = devDtoList;
+
             }
+
 
             //TODO: if employee is Tester
 
