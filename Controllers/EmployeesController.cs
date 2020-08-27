@@ -41,11 +41,23 @@ namespace EYBadges.Controllers
             var employee = await _context.Employee.FindAsync(id);
             var teamId = employee.TeamId;
             var teamDetails = await _context.TeamDetails.FindAsync(teamId);
-
-            //TODO: find all list of dates with same employee ID
-            var outOfTheBox = await _context.OutOfTheBox.FindAsync(id);
-
             EmployeeDto response = new EmployeeDto();
+            //find all list of dates with same employee ID
+            var outOfTheBox =  _context.OutOfTheBox.FromSql("select * from OutOfTheBox where EmployeeId = {0}", id).ToList();
+            
+            var outOfBoxDtoList = new List<OutOfBoxDto>();
+            foreach (var item in outOfTheBox)
+            {
+                OutOfBoxDto outOfTheBoxDto = new OutOfBoxDto();
+                outOfTheBoxDto.Date= item.Date;
+                outOfTheBoxDto .IdeasToEnhanceTheCompany= item.IdeasToEnhanceTheCompany;
+                outOfTheBoxDto.IdeasToEnhanceTheProject= item.IdeasToEnhanceTheProject;
+                outOfBoxDtoList.Add(outOfTheBoxDto);
+
+            }
+
+            response.OutOfBoxDto = outOfBoxDtoList;
+
 
             // if employee is Dev
             if (employee.EmployeeType == 1)
@@ -74,18 +86,14 @@ namespace EYBadges.Controllers
 
             //TODO: if employee is Tester
 
-            OutOfBoxDto outOfTheBoxDto = new OutOfBoxDto();
-            outOfTheBox.Date = outOfTheBox.Date;
-            outOfTheBox.IdeasToEnhanceTheCompany = outOfTheBox.IdeasToEnhanceTheCompany;
-            outOfTheBox.IdeasToEnhanceTheProject = outOfTheBox.IdeasToEnhanceTheProject;
-
+            
             
             response.EmployeeId = id;
             response.EmployeeName = employee.EmployeeName;
             response.TeamName = teamDetails.TeamName;
             //response.DeveloperKpiDto.Date = developerKpi.Date;
             
-            response.OutOfBoxDto = outOfTheBoxDto;
+
 
 
 

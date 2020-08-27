@@ -10,8 +10,8 @@ namespace EYBadges.Dto
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string TeamName { get; set; }
-        public  List<DeveloperKpiDto> DeveloperKpiDto { get; set; }
-        public OutOfBoxDto OutOfBoxDto { get; set; }
+        public List<DeveloperKpiDto> DeveloperKpiDto { get; set; }
+        public List<OutOfBoxDto> OutOfBoxDto { get; set; }
 
     }
 }
