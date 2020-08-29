@@ -69,11 +69,11 @@ namespace EYBadges.Controllers
                 // find all list of dates with same employee ID
                 var developerKpi = _context.DeveloperKpi.FromSql("Select * from DeveloperKpi where EmployeeId = {0}",id).ToList();
 
-                var devDto = new DeveloperKpiDto();
                 var devDtoList = new List<DeveloperKpiDto>();
 
                 foreach (var developer in developerKpi)
                 {
+                    var devDto = new DeveloperKpiDto();
                     devDto.Date = developer.Date;
                     devDto.TestCoverage = developer.TestCoverage;
                     devDto.CodeQualityPercent = developer.CodeQualityPercent;
