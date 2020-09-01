@@ -29,13 +29,15 @@ namespace EYBadges
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+                options.AddPolicy(
+                    "Restricted",
+                    // localhost:5000 for locally running API, localhost:80 for locally running Swagger Editor for openapi.json (see README.md)
+                    p => p.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             });
-            
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<EYBadgeMetricsContext>(
                opt =>
@@ -52,6 +54,8 @@ namespace EYBadges
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("Restricted");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -61,13 +65,11 @@ namespace EYBadges
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
             
 
-            app.UseCors("CorsPolicy");
 
-          
         }
     }
 }
