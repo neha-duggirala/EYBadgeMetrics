@@ -79,7 +79,7 @@ namespace EYBadges.Controllers
                     devDto.CodeQualityPercent = developer.CodeQualityPercent;
                     devDto.CodeSmellPercent = developer.CodeSmellPercent;
                     devDto.Kloc = developer.Kloc;
-                    devDto.Throughput = developer.Throughput; 
+                    devDto.Throughput = developer.Throughput - 50; 
                     devDtoList.Add(devDto);
                 }
 
